@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/nix/store/ngfvnb22lh72z8prslmfdd2aiis5z08p-python3-3.5.3/bin/python3
 
 """
 =head1 NAME
@@ -117,9 +117,9 @@ if action == 'autoconf':
         print("no (failed to request monit status)")
 elif action == 'config':
     procs = parse_processes()
-    print('graph_title Per process stats from Monit')
+    print('graph_title Monit process stats')
     print('graph_vlabel usage of memory [kB] or cpu [%]')
-    print('graph_category munin')
+    print('graph_category processes')
     for process in procs:
         for stat in procs[process]:
             print("monit_%s_%s.label %s.%s" % (sanitize(process), stat, process, stat))
