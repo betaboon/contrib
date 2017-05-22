@@ -34,6 +34,11 @@ Optionally monit authentication can be configured, e.g.:
   env.username munin
   env.password s3cr3t
 
+Optionally the status-check during autoconf can be disabled:
+
+  [monit_parser]
+  env.autoconf-check no
+
 
 =head1 AUTHOR
 
@@ -43,8 +48,8 @@ Optionally monit authentication can be configured, e.g.:
 
 =head1 MAGIC MARKERS
 
-  family=auto
-  capabilities=autoconf
+  #%# family=auto
+  #%# capabilities=autoconf
 
 =cut
 """
@@ -105,7 +110,8 @@ action = sys.argv[1] if (len(sys.argv) > 1) else None
 
 if action == 'autoconf':
     try:
-        get_monit_status_xml()
+        if os.getenv("autoconfcheck", "yes") is "yes":
+            get_monit_status_xml()
         print("yes")
     except RuntimeError:
         print("no (failed to request monit status)")
